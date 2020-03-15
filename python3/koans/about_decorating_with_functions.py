@@ -6,15 +6,17 @@ from runner.koan import *
 
 class AboutDecoratingWithFunctions(Koan):
     def addcowbell(fn):
+        print("in addcowbell")
         fn.wow_factor = 'COWBELL BABY!'
         return fn
 
     @addcowbell
     def mediocre_song(self):
+        print("in mediocre")
         return "o/~ We all live in a broken submarine o/~"
 
     def test_decorators_can_modify_a_function(self):
-        self.assertRegex(self.mediocre_song(), __)
+        self.assertRegex(self.mediocre_song(), "o/~ We all live in a broken submarine o/~")
         self.assertEqual(__, self.mediocre_song.wow_factor)
 
     # ------------------------------------------------------------------

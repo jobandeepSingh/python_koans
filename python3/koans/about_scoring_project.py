@@ -34,7 +34,28 @@ from runner.koan import *
 
 def score(dice):
     # You need to write this method
-    pass
+
+    from collections import Counter
+    numbers = dict(Counter(dice))
+    score = 0
+
+    if 1 in numbers and numbers[1] >= 3: # if there are 3 ones
+        score += 1000
+        numbers[1] -= 3
+    else:
+        for key, value in numbers.items():
+            if value >= 3: # checking for 3 of any number
+                score += key*100
+                numbers[key] -= 3
+    
+    if 1 in numbers: # any extra ones
+        score += 100*numbers[1]
+    
+    if 5 in numbers: # any extra fives
+        score += 50*numbers[5]
+
+    return score
+    
 
 class AboutScoringProject(Koan):
     def test_score_of_an_empty_list_is_zero(self):
